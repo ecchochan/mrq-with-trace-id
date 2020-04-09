@@ -5,7 +5,8 @@ This is a forked version of **mrq** from **pricingassistant**.
 This work has made the following modifications:
 
 - [x] In `queue_job` & `queue_jobs`, added a parameter `trace_code` </br>such that it is saved in each datum in MongoDB (`mrq/mrq_jobs`)
-- [x] When initiating the library `mrq`, ensure there is an index for (`trace_code`, `datequeued`) in collection `mrq/mrq_jobs` 
+- [x] When initiating the library `mrq`, ensure there is an index for (`trace_code`, `datequeued`) in collection `mrq/mrq_jobs`
+- [x] added `get_last_job_result_by_trace_id` in `mrq/job.py`
 
 
 To install this version, run
