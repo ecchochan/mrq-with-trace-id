@@ -105,6 +105,9 @@ def set_current_config(config):
         from mrq.monkey import patch_io_all
         patch_io_all(config)
 
+    connections.mongodb_jobs.mrq_jobs.create_index([('trace_id',1),('datequeued',-1)], 
+                                                           background=True,
+                                                           name='trace_id_index')
 
 def get_current_config():
     if not _GLOBAL_CONTEXT["config"]:
