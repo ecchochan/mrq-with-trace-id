@@ -708,10 +708,11 @@ def queue_jobs(main_task_path, params_list, queue=None, batch_size=1000):
             "params": params,
             "queue": queue,
             "datequeued": datetime.datetime.utcnow(),
-            "status": "queued"
+            "status": "queued",
+            "trace_id": params.get("trace_id")
         } for params in params_group], w=1, return_jobs=False)
 
-        all_ids += job_ids
+        all_ids.extend(job_ids)
 
     queue_obj.notify(len(all_ids))
     set_queues_size({queue: len(all_ids)})
