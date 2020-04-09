@@ -1,5 +1,15 @@
 # MRQ
 
+This is a forked version of **mrq** from **pricingassistant**.
+
+This work has the following modification:
+
+- [ ] In `queue_job` & `queue_jobs`, added a parameter `trace_code` </br>such that it is saved in each datum in MongoDB (`mrq/mrq_jobs`)
+- [ ] When starting a worker, check if there is an index for `trace_code` in collection `mrq/mrq_jobs` 
+
+---
+
+
 [![Build Status](https://travis-ci.org/pricingassistant/mrq.svg?branch=master)](https://travis-ci.org/pricingassistant/mrq) [![MIT License](https://img.shields.io/github/license/pricingassistant/mrq.svg)](LICENSE)
 
 [MRQ](http://pricingassistant.github.io/mrq) is a distributed task queue for python built on top of mongo, redis and gevent.
