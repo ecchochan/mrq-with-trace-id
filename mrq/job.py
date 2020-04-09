@@ -659,6 +659,24 @@ def get_job_result(job_id):
     job.fetch(full_data={"result": 1, "status": 1, "_id": 0})
     return job.data
 
+def get_last_job_result_by_trace_id(trace_id, full_data=False):
+    
+    if full_data is True:
+        fields = None
+    elif isinstance(full_data, dict):
+        fields = full_data
+    else:
+        fields = {
+            "_id": 0,
+            "path": 1,
+            "params": 1,
+            "status": 1,
+            "retry_count": 1,
+        }
+    return collection.find_one({
+        "trace_id": trace_id
+    }, projection=fields, sort=[("datequeued", pymongo.DESCENDING)])
+
 
 def queue_raw_jobs(queue, params_list, **kwargs):
     """ Queue some jobs on a raw queue """
