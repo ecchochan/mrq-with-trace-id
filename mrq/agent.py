@@ -10,7 +10,7 @@ from collections import defaultdict
 from bson import ObjectId
 
 try:
-    from redis.lock import LuaLock
+    from redis.lock import LuaLock as Lock
 except ImportError:
     from redis.lock import Lock
     
@@ -143,7 +143,7 @@ class Agent(Process):
         lock_timeout = 5 * 60 + (interval * 2)
 
         while True:
-            lock = LuaLock(connections.redis, self.redis_queuestats_lock_key,
+            lock = Lock(connections.redis, self.redis_queuestats_lock_key,
                            timeout=lock_timeout, thread_local=False, blocking=False)
             with lock:
                 lock_expires = time.time() + lock_timeout
