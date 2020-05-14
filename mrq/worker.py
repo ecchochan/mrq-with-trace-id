@@ -17,7 +17,7 @@ import ujson as json
 from bson import ObjectId
 
 try:
-    from redis.lock import LuaLock
+    from redis.lock import LuaLock as Lock
 except ImportError:
     from redis.lock import Lock
     
@@ -147,7 +147,7 @@ class Worker(Process):
 
         redis_scheduler_lock_key = "%s:schedulerlock" % get_current_config()["redis_prefix"]
         while True:
-            with LuaLock(connections.redis, redis_scheduler_lock_key,
+            with Lock(connections.redis, redis_scheduler_lock_key,
                          timeout=self.config["scheduler_interval"] + 10, blocking=False, thread_local=False):
                 self.scheduler.check()
 
